@@ -1,2 +1,2 @@
-# hacktiv8-golang
-Hacktiv8 Lesson Golang Public Repository
+# Hacktiv 8 Golang Basic Lesson
+This repository for golang lesson at Hacktiv8

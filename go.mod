@@ -1,3 +1,3 @@
-module hacktiv8/session-1
+module hacktiv8/golang-basic
 
 go 1.18

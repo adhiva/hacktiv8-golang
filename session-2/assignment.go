@@ -3,6 +3,7 @@ package session2
 import "fmt"
 
 func GetPerson(index int) {
+	index = index - 1
 	names := []*Person{
 		{Name: "Ricky Pieter Palembangan", Address: "Jakarta", Job: "Programmer", Reason: "Growth Together"},
 		{Name: "Thalia Indah Milagrosa", Address: "Jakarta", Job: "Programmer", Reason: "Growth Together"},

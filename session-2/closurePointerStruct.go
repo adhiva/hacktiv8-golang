@@ -3,7 +3,10 @@ package session2
 import "fmt"
 
 type Person struct {
-	Name string
+	Name    string
+	Address string
+	Job     string
+	Reason  string
 }
 
 func ClosurePointerStruct() {

@@ -20,7 +20,7 @@ func GetPerson(index int) {
 	if index > len(names) || index < 0 {
 		fmt.Print("ERROR Undifined Index!")
 		return
-	}
+	}	
 
 	fmt.Println(
 		"Nama : ", names[index].Name,

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	session1 "hacktiv8/golang-basic/session-1"
 	session2 "hacktiv8/golang-basic/session-2"
+	IUserService "hacktiv8/golang-basic/session-3"
 	"os"
 	"strconv"
 )
@@ -30,8 +31,25 @@ func main() {
 	// }
 
 	// input = strings.TrimSuffix(input, "\n")
-	args, _ := strconv.Atoi(os.Args[1])
-	session2.GetPerson(args)
+	if len(os.Args) > 1 {
+		args, _ := strconv.Atoi(os.Args[1])
+		session2.GetPerson(args)
+	}
+
+	fmt.Println("\n==== Assignment Pertemuan 3 ====")
+	ourUser := []*IUserService.User{}
+	userService := IUserService.NewUserService(ourUser)
+	names := []string{"Giva", "Fahmi", "Yusuf"}
+
+	for _, v := range names {
+		userName := userService.Register(&IUserService.User{Name: v})
+		fmt.Println(userName)
+	}
+
+	getUsers := userService.GetUser()
+	for _, v := range getUsers {
+		fmt.Println("User : ", v.Name)
+	}
 
 	// fmt.Println("\nTest Golang")
 	// fmt.Println("Hello World! Let's Go!")

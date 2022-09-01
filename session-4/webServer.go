@@ -11,9 +11,7 @@ const PORT = ":3000"
 func WebServer() {
 	db := []*session3.User{}
 	userService := session3.NewUserService(db)
-	userHandler := UserHandler{
-		UserService: userService,
-	}
+	userHandler := NewUserHandler(userService)
 
 	http.HandleFunc("/", hello)
 	http.HandleFunc("/register", userHandler.RegisterUserHandler)

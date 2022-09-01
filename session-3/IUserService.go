@@ -1,6 +1,6 @@
 package session3
 
 type IUserService interface {
-	Register(*User) string
+	Register(user *User) string
 	GetUser() []*User
 }

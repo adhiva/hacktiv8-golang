@@ -1,8 +1,10 @@
 package session3
 
+import "fmt"
+
 type User struct {
-	Name string
-	Age  string
+	Name string `json:"name"`
+	Age  string `json:"age"`
 }
 
 type UserService struct {
@@ -17,6 +19,7 @@ func NewUserService(db []*User) IUserService {
 
 func (us *UserService) Register(u *User) string {
 	us.User = append(us.User, u)
+	fmt.Println("User : ", u.Name)
 	return "Yeay berhasil ditambahkan " + u.Name
 }
 

@@ -5,8 +5,10 @@ import (
 	session1 "hacktiv8/golang-basic/session-1"
 	session2 "hacktiv8/golang-basic/session-2"
 	IUserService "hacktiv8/golang-basic/session-3"
+	session4 "hacktiv8/golang-basic/session-4"
 	"os"
 	"strconv"
+	"sync"
 )
 
 func main() {
@@ -36,20 +38,47 @@ func main() {
 		session2.GetPerson(args)
 	}
 
-	fmt.Println("\n==== Assignment Pertemuan 3 ====")
+	fmt.Println("\n==== Assignment Pertemuan 3 A ====")
 	ourUser := []*IUserService.User{}
 	userService := IUserService.NewUserService(ourUser)
 	names := []string{"Giva", "Fahmi", "Yusuf"}
 
-	for _, v := range names {
-		userName := userService.Register(&IUserService.User{Name: v})
-		fmt.Println(userName)
-	}
+	// for _, v := range names {
+	// 	userName := userService.Register(&IUserService.User{Name: v})
+	// 	fmt.Println(userName)
+	// }
 
-	getUsers := userService.GetUser()
-	for _, v := range getUsers {
-		fmt.Println("User : ", v.Name)
+	// getUsers := userService.GetUser()
+	// for _, v := range getUsers {
+	// 	fmt.Println("User : ", v.Name)
+	// }
+
+	fmt.Println("\n==== Assignment Pertemuan 3 B ====")
+	var wg sync.WaitGroup
+
+	wg.Add(len(names))
+	for _, v := range names {
+		go func(name string, wg1 *sync.WaitGroup) {
+			resp := userService.Register(&IUserService.User{Name: name})
+			fmt.Println(resp)
+			wg1.Done()
+		}(v, &wg)
 	}
+	wg.Wait()
+
+	var wg2 sync.WaitGroup
+	wg2.Add(len(userService.GetUser()))
+	for _, name := range userService.GetUser() {
+		go func(name2 string, wg3 *sync.WaitGroup) {
+			fmt.Println("Nama ku adalah : ", name2)
+			wg3.Done()
+		}(name.Name, &wg2)
+	}
+	wg2.Wait()
+
+	fmt.Println("\n==== Assignment Pertemuan 4 ====")
+	fmt.Println("\n======= Web Server Start ======")
+	session4.WebServer()
 
 	// fmt.Println("\nTest Golang")
 	// fmt.Println("Hello World! Let's Go!")

@@ -5,6 +5,9 @@ import (
 	"fmt"
 	IUserService "hacktiv8/golang-basic/session-3"
 	"net/http"
+	"strconv"
+
+	"github.com/gin-gonic/gin"
 )
 
 type UserHandler struct {
@@ -43,4 +46,33 @@ func (nuh *UserHandler) RegisterUserHandler(w http.ResponseWriter, r *http.Reque
 	msg := fmt.Sprintf("%s Berhasil ditambahkan", name)
 	fmt.Fprint(w, msg)
 
+}
+
+func (nuh *UserHandler) GetUserGinHandler(c *gin.Context) {
+	users := nuh.UserService.GetUser()
+	c.JSON(http.StatusOK, gin.H{
+		"data": users,
+	})
+	return
+}
+
+func (nuh *UserHandler) GetDetailUserGinHandler(c *gin.Context) {
+	users := nuh.UserService.GetUser()
+	index, _ := strconv.Atoi(c.Param("identifier"))
+	user := users[index]
+
+	c.JSON(http.StatusOK, gin.H{
+		"user": user,
+	})
+	return
+}
+
+func (nuh *UserHandler) RegisterUserGinHandler(c *gin.Context) {
+	name := c.PostForm("name")
+	nuh.UserService.Register(&IUserService.User{Name: name})
+	msg := fmt.Sprintf("%s Berhasil ditambahkan", name)
+	c.JSON(http.StatusAccepted, gin.H{
+		"message": msg,
+	})
+	return
 }

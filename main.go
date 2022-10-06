@@ -78,7 +78,7 @@ func main() {
 
 	fmt.Println("\n==== Assignment Pertemuan 4 ====")
 	fmt.Println("\n======= Web Server Start ======")
-	session4.WebServer()
+	session4.GinRouter()
 
 	// fmt.Println("\nTest Golang")
 	// fmt.Println("Hello World! Let's Go!")
